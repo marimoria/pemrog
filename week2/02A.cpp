@@ -56,8 +56,7 @@ int main() {
   string n;
   int k;
 
-  // tidak pakai getline karna mereka cuma dipisah oleh spasi
-  // cin membelah berdasarkan spasi
+  // tidak pakai getline karna tiap elemen dipisah spasi
   if (!(cin >> n >> k)) { return 0; }
 
   MinumanKemasan minuman(n, k);
