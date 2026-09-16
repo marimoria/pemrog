@@ -14,6 +14,8 @@ class Kendaraan {
   public:
     Kendaraan(string np, string jenisK, int jm, int jk):
       nomorPlat(np), jenisKendaraan(jenisK), jamMasuk(jm), jamKeluar(jk) {}
+
+    virtual ~Kendaraan() {}
     
     int hitungDurasi() {
       return (jamKeluar - jamMasuk);
@@ -45,15 +47,16 @@ class Mobil: public Kendaraan {
     Mobil(string np, string jenisK, int jm, int jk, int kp):
       Kendaraan(np, jenisK, jm, jk), kapasitasPenumpang(kp) {}
 
-    string getKendaraan() {
+    string getKendaraan() override {
       return "Mobil";
     }
 
-    int hitungTarif() {
-      return (5000 + ((hitungDurasi()-1)*3000));
+    int hitungTarif() override {
+      int durasiTambahan = max(0, hitungDurasi() - 1);
+      return (5000 + (durasiTambahan * 3000));
     }
 
-    void tampilkanInfo() {
+    void tampilkanInfo() override {
       Kendaraan::tampilkanInfo();
       cout << "Kapasitas       : " << kapasitasPenumpang << " Penumpang" << endl;
       cout << "Total Tarif     : " << "Rp " << hitungTarif() << endl;
@@ -68,15 +71,16 @@ class Motor: public Kendaraan {
     Motor(string np, string jenisK, int jm, int jk, string jenisM):
       Kendaraan(np, jenisK, jm, jk), jenisMotor(jenisM) {}
 
-    string getKendaraan() {
+    string getKendaraan() override {
       return "Motor";
     }
 
-    int hitungTarif() {
-      return (2000 + ((hitungDurasi()-1)*1000));
+    int hitungTarif() override {
+      int durasiTambahan = max(0, hitungDurasi() - 1);
+      return (2000 + (durasiTambahan * 1000));
     }
 
-    void tampilkanInfo() {
+    void tampilkanInfo() override {
       Kendaraan::tampilkanInfo();
       cout << "Tipe Motor      : " << jenisMotor << endl;
       cout << "Total Tarif     : " << "Rp " << hitungTarif() << endl;
@@ -89,7 +93,7 @@ int main() {
 
   vector<Kendaraan*> daftarKendaraan;
 
-  for (int i = 1; i <= n; i++) {
+  for (int i = 0; i < n; i++) {
     string namaKendaraan;
     string platKendaraan;
     string jenisKendaraan;
@@ -113,14 +117,19 @@ int main() {
     }
   }
 
-  for (int i = 0; i < n; i++) {
+  for (int i = 0; i < daftarKendaraan.size(); i++) {
     cout << "--- DATA PARKIR KENDARAAN " << (i + 1) << " ---" << endl;
     daftarKendaraan[i]->tampilkanInfo();
 
-    if (i != n - 1) {
+    if (i != daftarKendaraan.size() - 1) {
       cout << endl;
     }
-  } 
+  }
+
+  for (Kendaraan* k : daftarKendaraan) {
+    delete k;
+  }
+  daftarKendaraan.clear();
 
   return 0;
 }

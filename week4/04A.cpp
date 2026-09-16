@@ -11,6 +11,7 @@ class Bangun {
 
   public:
     Bangun(double u): ukuran(u), luas(0.0) {}
+    
     virtual ~Bangun() {}
 
     virtual void hitungLuas() {
@@ -45,7 +46,7 @@ class Lingkaran: public Bangun {
   public:
     Lingkaran(double u): Bangun(u) {}
 
-    void hitungLuas() {
+    void hitungLuas() override {
       setLuas(getPi() * pow(getUkuran(),2.0));
     }
 };
@@ -54,7 +55,7 @@ class Persegi: public Bangun {
   public:
     Persegi(double u): Bangun(u) {}
 
-    void hitungLuas() {
+    void hitungLuas() override {
       setLuas(pow(getUkuran(),2.0));
     }
 };
@@ -63,11 +64,11 @@ class Bola: public Bangun3D {
   public:
     Bola(double u): Bangun3D(u) {}
 
-    void hitungLuas() {
+    void hitungLuas() override {
       setLuas(4 * getPi() * pow(getUkuran(), 2.0));
     }
 
-    void hitungVolume() {
+    void hitungVolume() override {
       setVolume((4.0/3.0) * getPi() * pow(getUkuran(),3.0));
     }
 };
@@ -76,11 +77,11 @@ class Kubus: public Bangun3D {
   public:
     Kubus(double u): Bangun3D(u) {}
 
-    void hitungLuas() {
+    void hitungLuas() override {
       setLuas(6 * pow(getUkuran(), 2.0));
     }
 
-    void hitungVolume() {
+    void hitungVolume() override {
       setVolume(pow(getUkuran(),3.0));
     }
 };
