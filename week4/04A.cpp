@@ -88,7 +88,8 @@ class Kubus: public Bangun3D {
 
 int main() {
   int n;
-  cin >> n;
+  
+  if (!(cin >> n)) { return 0; }
 
   double totalLuas = 0.0;
   double totalVolume = 0.0;
