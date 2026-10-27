@@ -1,1 +1,3 @@
 *.exe
+.bsp
+.scala-build
